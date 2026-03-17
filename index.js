@@ -1,1 +1,7 @@
-console.log("hello world");
+function greet(name) {
+  return `hello ${name}`;
+}
+
+console.log(greet('world'));
+
+module.exports = { greet };
