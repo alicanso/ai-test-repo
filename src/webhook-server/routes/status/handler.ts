@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import pkg from '../../package.json';
+import { Hono } from 'hono';
+import pkg from '../../../../package.json';
 
 interface StatusResponse {
   name: string;
@@ -9,9 +9,9 @@ interface StatusResponse {
   nodeVersion: string;
 }
 
-const router = Router();
+const statusRoute = new Hono();
 
-router.get('/', (_req, res) => {
+statusRoute.get('/', (c) => {
   const response: StatusResponse = {
     name: pkg.name,
     version: pkg.version,
@@ -19,7 +19,7 @@ router.get('/', (_req, res) => {
     timestamp: new Date().toISOString(),
     nodeVersion: process.version,
   };
-  res.json(response);
+  return c.json(response);
 });
 
-export default router;
+export default statusRoute;
